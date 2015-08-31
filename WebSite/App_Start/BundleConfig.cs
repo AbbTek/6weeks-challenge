@@ -26,6 +26,12 @@ namespace WebSite
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-theme.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/superAdmin").Include(
+          "~/Scripts/angular.js",
+          "~/Scripts/angular-animate.js",
+          "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
+          "~/Scripts/pages/SuperAdminController.js"));
         }
     }
 }

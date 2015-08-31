@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard Super Admin";
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+<h2>Index Super Admin</h2>
+<div ng-controller="UsersCtrl">
+    <form>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" ng-model="user.Email">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="user.Password">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputFile">Roles</label>
+            
+            <p class="help-block">Example block-level help text here.</p>
+        </div>
+        <button type="submit" class="btn btn-default" ng-click="create(user)">Create User</button>
+    </form>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Confirmed</th>
+                <th>Acctions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users">
+                <td>{{user.Email}}</td>
+                <td>{{user.EmailConfirmed}}</td>
+                <td><button type="button" class="btn btn-primary" ng-click="delete(user.Id)">Delete</button> </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
