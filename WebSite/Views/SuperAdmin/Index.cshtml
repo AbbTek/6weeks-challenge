@@ -14,7 +14,7 @@
                 <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
             </div>
             <button type="submit" class="btn btn-default">Search</button>
-            <button type="submit" class="btn btn-default" ng-click="open()">New Box</button>
+            <button type="submit" class="btn btn-default" ng-click="new()">New Box</button>
         </form>
         <hr />
         <table class="table table-bordered table-hover">
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <ui-gmap-google-map center='map.center' zoom='map.zoom' events="map.events">
+                        <ui-gmap-google-map center='map.center' zoom='map.zoom'>
                             <ui-gmap-search-box template="searchbox.template" events="searchbox.events" parentdiv="searchbox.parentdiv"></ui-gmap-search-box>
                             <ui-gmap-marker coords="marker.coords"  idkey="marker.id">
                             </ui-gmap-marker>

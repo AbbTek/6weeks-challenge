@@ -1,5 +1,11 @@
 ﻿challengeApp.controller('boxController', function ($scope, $http, $modal) {
     $scope.boxes = [];
+    $scope.box = {
+        _id: null,
+        Location: {
+            coordinates: [151.20699020000006, -33.8674869]
+        }
+    };
 
     $scope.refresh = function () {
         $http.get('/api/superadminquery/getallboxes',
@@ -22,6 +28,11 @@
 
     $scope.edit = function (box) {
         $scope.box = box;
+        $scope.open();
+    };
+
+    $scope.new = function () {
+        $scope.box._id = null;
         $scope.open();
     };
 
@@ -59,12 +70,7 @@ challengeApp.controller('boxModalController',
                 latitude: $scope.box.Location.coordinates[1],
                 longitude: $scope.box.Location.coordinates[0]
             },
-            zoom: 15,
-            events: {
-                resize: function (maps, eventName, args) {
-                    alert('resize');
-                }
-            }
+            zoom: 15
         };
 
         $scope.marker = {
@@ -127,6 +133,8 @@ challengeApp.controller('boxModalController',
         uiGmapIsReady.promise()
             .then(function (map_instances) {
                 var map = map_instances[0].map;
+                var currCenter = map.getCenter();
                 google.maps.event.trigger(map, 'resize');
+                map.setCenter(currCenter);
             });
     });
