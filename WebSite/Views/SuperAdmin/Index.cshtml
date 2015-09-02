@@ -4,40 +4,140 @@
     Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
 }
 
-<h2>Index Super Admin</h2>
-<div ng-controller="UsersCtrl">
-    <form>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" ng-model="user.Email">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="user.Password">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputFile">Roles</label>
-            
-            <p class="help-block">Example block-level help text here.</p>
-        </div>
-        <button type="submit" class="btn btn-default" ng-click="create(user)">Create User</button>
-    </form>
+<h2>6 Weeks Challenge Administrator</h2>
+<div class="row">
+    <div class="col-md-6" ng-controller="boxController">
+        <h3>Boxes</h3>
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="exampleInputName2">Name</label>
+                <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+            </div>
+            <button type="submit" class="btn btn-default">Search</button>
+            <button type="submit" class="btn btn-default" ng-click="open()">New Box</button>
+        </form>
+        <hr />
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Active</th>
+                    <th>Logo</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="box in boxes">
+                    <td>{{box.Name}}</td>
+                    <td>{{box.Address}}</td>
+                    <td>{{box.Active}}</td>
+                    <td></td>
+                    <td>
+                        <button type="button" class="btn" ng-click="delete(box._id)">Delete</button>
+                        <button type="button" class="btn" ng-click="edit(box)">Edit</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <script type="text/ng-template" id="searchbox.tpl.html">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="txtAddressBox" placeholder="Search Box" ng-model="$parent.box.Address">
+                </div>
+            </script>
+            <script type="text/ng-template" id="myModalContent.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">New Box</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="txtNameBox">Name box</label>
+                        <input type="text" class="form-control" id="txtNameBox" placeholder="Name box" ng-model="box.Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="chkActiveBox">Active</label>
+                        <input type="checkbox" class="form-control" id="chkActiveBox" placeholder="Active" ng-model="box.Active">
+                        <input type="hidden" ng-model="box._id" />
+                    </div>
+                    <div class="form-group">
+                        <label for="txtAddressBox">Address</label>
+                        <div id="divTextMap">
 
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Confirmed</th>
-                <th>Acctions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="user in users">
-                <td>{{user.Email}}</td>
-                <td>{{user.EmailConfirmed}}</td>
-                <td><button type="button" class="btn btn-primary" ng-click="delete(user.Id)">Delete</button> </td>
-            </tr>
-        </tbody>
-    </table>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <ui-gmap-google-map center='map.center' zoom='map.zoom' events="map.events">
+                            <ui-gmap-search-box template="searchbox.template" events="searchbox.events" parentdiv="searchbox.parentdiv"></ui-gmap-search-box>
+                            <ui-gmap-marker coords="marker.coords"  idkey="marker.id">
+                            </ui-gmap-marker>
+                        </ui-gmap-google-map>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" ng-click="ok(box)">OK</button>
+                    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+                </div>
+            </script>
+        </div>
+
+    </div>
+    <div class="col-md-6" ng-controller="userController">
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" ng-model="user.Email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="user.Password">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile">Roles</label>
+
+                <p class="help-block">Example block-level help text here.</p>
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="create(user)">Create User</button>
+        </form>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Confirmed</th>
+                    <th>Roles</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user.Email}}</td>
+                    <td>{{user.EmailConfirmed}}</td>
+                    <td>
+                        <ul>
+                            <li ng-repeat="rol in user.Roles">
+                                {{rol}}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" ng-click="delete(user._id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+@section styles {
+    <style>
+        .angular-google-map-container {
+            height: 200px;
+        }
+
+.pac-container {
+  z-index: 1051 !important;
+}
+    </style>
+}
+
 

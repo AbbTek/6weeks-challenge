@@ -31,7 +31,11 @@ namespace WebSite
           "~/Scripts/angular.js",
           "~/Scripts/angular-animate.js",
           "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
-          "~/Scripts/pages/SuperAdminController.js"));
+          "~/Scripts/lodash.js",
+          "~/Scripts/libs/angular-google-maps.js",
+          "~/Scripts/challenge/superAdmin/app.js",
+          "~/Scripts/challenge/superAdmin/userController.js",
+          "~/Scripts/challenge/superAdmin/boxController.js"));
         }
     }
 }

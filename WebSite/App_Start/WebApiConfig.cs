@@ -9,6 +9,7 @@ namespace WebSite
     {
         public static void Register(HttpConfiguration config)
         {
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
             // Web API configuration and services
 
             // Web API routes
@@ -21,4 +22,6 @@ namespace WebSite
             );
         }
     }
+
+
 }

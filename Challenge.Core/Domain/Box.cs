@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using Challenge.Core.Utils;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,15 @@ using System.Threading.Tasks;
 
 namespace Challenge.Core.Domain
 {
+    [CollectionName("boxes")]
     public class Box
     {
-        public ObjectId Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string _id { get; set; }
         public string Name { get; set; }
-        [BsonIgnoreIfDefault]
         public string Address { get; set; }
+        public bool Active { get; set; }
+        public XYPoint Location { get; set; }
     }
 }

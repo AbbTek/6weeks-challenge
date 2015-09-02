@@ -8,11 +8,12 @@ using Challenge.Core;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using WebSite.Models;
+using Challenge.Core.Domain;
 
-namespace WebSite.Controllers
+namespace WebSite.Controllers.API
 {
     [Authorize(Roles = "SuperAdmin")]
-    public class SuperAdminServicesController : ApiController
+    public class SuperAdminCommandController : ApiController
     {
         private ApplicationUserManager _userManager;
 
@@ -28,12 +29,6 @@ namespace WebSite.Controllers
             }
         }
 
-        public IEnumerable<User> GetAllUsers()
-        {
-            var p = new Persistence();
-            var users = p.GetCollection<User>("users");
-            return users.Find(new BsonDocument()).ToListAsync().Result;
-        }
 
         public void CreateUser([FromBody]User user)
         {
@@ -43,13 +38,32 @@ namespace WebSite.Controllers
 
         public void DeleteUser(string id)
         {
-            var p = new Persistence();
-            var users = p.GetCollection<User>("users");
+            var users = MongoRepository.GetCollection<User>();
             var filter = Builders<User>.Filter.Eq("Id", new ObjectId(id));
             var projection = Builders<User>.Projection.Include("Email");
             var userEmail = users.Find(filter).Project(projection).FirstOrDefaultAsync().Result;
             var user = UserManager.FindByEmailAsync(userEmail["Email"].AsString).Result;
             var result = UserManager.DeleteAsync(user).Result;
+        }
+
+        public void CreateOrUpdateBox([FromBody]Box box)
+        {
+            var boxes = MongoRepository.GetCollection<Box>();
+            if (string.IsNullOrWhiteSpace(box._id))
+            {
+                boxes.InsertOneAsync(box).Wait();
+            }
+            else
+            {
+                boxes.ReplaceOneAsync<Box>(z => z._id == box._id, box).Wait();
+            }
+        }
+
+        public void DeleteBox(string id)
+        {
+            var boxes = MongoRepository.GetCollection<Box>();
+            var filter = Builders<Box>.Filter.Eq("_id", new ObjectId(id));
+            boxes.DeleteOneAsync(filter).Wait();
         }
     }
 }
