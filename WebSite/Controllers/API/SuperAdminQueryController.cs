@@ -35,6 +35,12 @@ namespace WebSite.Controllers.API
             }
         }
 
+        public IEnumerable<Box> GetAllBoxes()
+        {
+            var users = MongoRepository.GetCollection<Box>();
+            return users.Find(new BsonDocument()).ToListAsync().Result;
+        }
+
         public IEnumerable<IDictionary> GetAllBoxes(string projections)
         {
             var users = MongoRepository.GetCollectionBsonDocument<Box>();

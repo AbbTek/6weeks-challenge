@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Challenge.Core.Domain
 {
     public class XYPoint
     {
+        [JsonProperty("type")]
         [BsonElement("type")]
         public string Type
         {
@@ -18,6 +20,7 @@ namespace Challenge.Core.Domain
             }
         }
 
+        [JsonProperty("coordinates")]
         [BsonElement("coordinates")]
         public double[] Coordinates
         {

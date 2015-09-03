@@ -6,7 +6,7 @@
 
 <h2>6 Weeks Challenge Administrator</h2>
 <div class="row">
-    <div class="col-md-6" ng-controller="boxController">
+    <div class="col-md-12" ng-controller="boxController">
         <h3>Boxes</h3>
         <form class="form-inline">
             <div class="form-group">
@@ -23,6 +23,7 @@
                     <th>Name</th>
                     <th>Address</th>
                     <th>Active</th>
+                    <th>Email manager</th>
                     <th>Logo</th>
                     <th>Actions</th>
                 </tr>
@@ -32,10 +33,17 @@
                     <td>{{box.Name}}</td>
                     <td>{{box.Address}}</td>
                     <td>{{box.Active}}</td>
-                    <td></td>
+                    <td>{{box.EmailManager}}</td>
+                    <td><img ng-src="{{box.UrlLogo}}" height="80" /></td>
                     <td>
-                        <button type="button" class="btn" ng-click="delete(box._id)">Delete</button>
-                        <button type="button" class="btn" ng-click="edit(box)">Edit</button>
+                        <div>
+                            <button type="button" class="btn btn-xs" ng-click="delete(box._id)">
+                                <i class="glyphicon glyphicon-remove" tooltip="Delete box" tooltip-placement="right"></i>
+                            </button>
+                            <button type="button" class="btn btn-xs" ng-click="edit(box)">
+                                <i class="glyphicon glyphicon-edit" tooltip="Edit box" tooltip-placement="right"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -47,42 +55,78 @@
                 </div>
             </script>
             <script type="text/ng-template" id="myModalContent.html">
-                <div class="modal-header">
-                    <h3 class="modal-title">New Box</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="txtNameBox">Name box</label>
-                        <input type="text" class="form-control" id="txtNameBox" placeholder="Name box" ng-model="box.Name">
+                <form name="boxForm" ng-submit="submitForm(box)" novalidate>
+                    <div class="modal-header">
+                        <h3 class="modal-title">Box</h3>
                     </div>
-                    <div class="form-group">
-                        <label for="chkActiveBox">Active</label>
-                        <input type="checkbox" class="form-control" id="chkActiveBox" placeholder="Active" ng-model="box.Active">
-                        <input type="hidden" ng-model="box._id" />
-                    </div>
-                    <div class="form-group">
-                        <label for="txtAddressBox">Address</label>
-                        <div id="divTextMap">
-
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group" ng-class="{ 'has-error' : boxForm.Name.$invalid && !boxForm.Name.$pristine }">
+                                    <label for="txtNameBox">Name box</label>
+                                    <input type="text" class="form-control" id="txtNameBox" name="Name" placeholder="Name box" ng-model="box.Name" required>
+                                    <p ng-show="boxForm.Name.$invalid && !boxForm.Name.$pristine" class="help-block">The box name is required.</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" ng-class="{ 'has-error' : boxForm.Email.$invalid && !boxForm.Email.$pristine }">
+                                    <label for="txtEmailManager">Email manager</label>
+                                    <input type="email" class="form-control" id="txtEmailManager" name="Email" placeholder="Email manager" ng-model="box.EmailManager" required>
+                                    <p ng-show="boxForm.Email.$invalid && !boxForm.Email.$pristine" class="help-block">A valid email is required.</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="box.Active" />Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group" ng-class="{ 'has-error' : boxForm.Email.$invalid && !boxForm.Email.$pristine }">
+                                    <label for="txtShortName">Short name box</label>
+                                    <input type="text" class="form-control" id="txtShortName" name="ShortName" placeholder="Short name box" ng-model="box.ShortName" required>
+                                    <p ng-show="boxForm.ShortName.$invalid && !boxForm.ShortName.$pristine" class="help-block">A short name is required.</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                        
+                                    <button class="btn btn-info" ngf-select="upload($file)" accept="image/*" ngf-max-size="1MB" type="button">Upload logo box</button>
+                                    <img alt="Logo" ng-src="{{box.UrlLogo}}" height="80" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="txtAddressBox">Address</label>
+                                    <div id="divTextMap">
+                                    </div>
+                                    <br />
+                                    <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+                                        <ui-gmap-search-box template="searchbox.template" events="searchbox.events" parentdiv="searchbox.parentdiv"></ui-gmap-search-box>
+                                        <ui-gmap-marker coords="marker.coords" idkey="marker.id">
+                                        </ui-gmap-marker>
+                                    </ui-gmap-google-map>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <ui-gmap-google-map center='map.center' zoom='map.zoom'>
-                            <ui-gmap-search-box template="searchbox.template" events="searchbox.events" parentdiv="searchbox.parentdiv"></ui-gmap-search-box>
-                            <ui-gmap-marker coords="marker.coords"  idkey="marker.id">
-                            </ui-gmap-marker>
-                        </ui-gmap-google-map>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" ng-disabled="boxForm.$invalid">OK</button>
+                        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" ng-click="ok(box)">OK</button>
-                    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-                </div>
+                </form>
             </script>
         </div>
 
     </div>
-    <div class="col-md-6" ng-controller="userController">
+</div>
+@*<div class="row">
+    <div class="col-md-12" ng-controller="userController">
         <form>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -127,17 +171,17 @@
             </tbody>
         </table>
     </div>
-</div>
+</div>*@
+
 @section styles {
     <style>
         .angular-google-map-container {
             height: 200px;
         }
 
-.pac-container {
-  z-index: 1051 !important;
-}
+        .pac-container {
+            z-index: 1051 !important;
+        }
     </style>
 }
-
 

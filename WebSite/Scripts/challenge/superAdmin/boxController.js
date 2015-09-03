@@ -61,7 +61,7 @@
     $scope.refresh();
 });
 challengeApp.controller('boxModalController',
-    function ($scope, $http, $modalInstance, uiGmapIsReady, box) {
+    function ($scope, $http, $modalInstance, uiGmapIsReady, Upload, box) {
 
         $scope.box = box;
 
@@ -92,6 +92,10 @@ challengeApp.controller('boxModalController',
 
                     $scope.box.Address = place.formatted_address;
 
+                    $scope.box.Location = {
+                        coordinates: [place.geometry.location.lng(), place.geometry.location.lat()]
+                    }
+
                     $scope.map = {
                         center: {
                             latitude: place.geometry.location.lat(),
@@ -107,23 +111,36 @@ challengeApp.controller('boxModalController',
                             longitude: place.geometry.location.lng()
                         }
                     };
-
-                    $scope.box.Location = {
-                        coordinates: [place.geometry.location.lng(), place.geometry.location.lat()]
-                    }
                 }
             },
             parentdiv: 'divTextMap'
         };
 
+        $scope.upload = function (file) {
+            Upload.upload({
+                url: '/fileupload',
+                fields: { },
+                file: file
+            }).progress(function (evt) {
+                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+            }).success(function (data, status, headers, config) {
+                console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+                $scope.box.UrlLogo = data;
+            }).error(function (data, status, headers, config) {
+                console.log('error status: ' + status);
+            })
+        };
 
-        $scope.ok = function (box) {
-            $http.post('/api/superadmincommand/createorupdatebox', box)
-        .then(function (response) {
-            $modalInstance.close();
-        }, function (response) {
-            alert(response.statusText);
-        });
+        $scope.submitForm = function (box) {
+            if ($scope.boxForm.$valid) {
+                $http.post('/api/superadmincommand/createorupdatebox', box)
+            .then(function (response) {
+                $modalInstance.close();
+            }, function (response) {
+                alert(response.statusText);
+            });
+            }
         };
 
         $scope.cancel = function () {

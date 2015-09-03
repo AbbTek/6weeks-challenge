@@ -1,4 +1,5 @@
-﻿var challengeApp = angular.module('challenge.superAdmin', ['ngAnimate', 'ui.bootstrap', 'uiGmapgoogle-maps']);
+﻿var challengeApp = angular.module('challenge.superAdmin', 
+['ngAnimate', 'ui.bootstrap', 'uiGmapgoogle-maps', 'ngFileUpload']);
 challengeApp.config(function (uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         //    key: 'your api key',

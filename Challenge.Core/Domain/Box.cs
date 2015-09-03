@@ -18,6 +18,9 @@ namespace Challenge.Core.Domain
         public string Name { get; set; }
         public string Address { get; set; }
         public bool Active { get; set; }
+        public string EmailManager { get; set; }
+        public string ShortName { get; set; }
+        public string UrlLogo { get; set; }
         public XYPoint Location { get; set; }
     }
 }
