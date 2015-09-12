@@ -17,7 +17,7 @@
     <AssemblyName>WebSite</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -188,6 +188,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\SuperAdminCommandController.cs" />
+    <Compile Include="Controllers\API\UtilsController.cs" />
     <Compile Include="Controllers\API\SuperAdminQueryController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -218,6 +219,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\6weekschallenge\6weekschallenge.module.js" />
+    <Content Include="Scripts\6weekschallenge\core\core.module.js" />
+    <Content Include="Scripts\6weekschallenge\core\dataService.js" />
+    <Content Include="Scripts\6weekschallenge\core\utilsService.js" />
+    <Content Include="Scripts\6weekschallenge\core\uploadService.js" />
+    <Content Include="Scripts\6weekschallenge\superAdmin\superAdmin.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -231,6 +238,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Scripts\6weekschallenge\superAdmin\superAdmin.module.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\challenge\superAdmin\app.js" />
     <Content Include="Scripts\challenge\superAdmin\boxController.js" />
@@ -246,7 +254,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\libs\angular-google-maps.js" />
+    <Content Include="Scripts\libs\angular-confirm.js" />
     <Content Include="Scripts\lodash.js" />
     <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -302,7 +310,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Uploads\" />
     <Folder Include="Views\FileUpload\" />
   </ItemGroup>
   <ItemGroup>
@@ -333,7 +340,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>9167</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9167/</IISUrl>
+          <IISUrl>http://localhost</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

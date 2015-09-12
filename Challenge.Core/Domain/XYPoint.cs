@@ -34,9 +34,11 @@ namespace Challenge.Core.Domain
         }
 
         [BsonIgnore]
+        [JsonIgnore]
         public double X { get { return Coordinates[0]; } }
 
         [BsonIgnore]
+        [JsonIgnore]
         public double Y { get { return Coordinates[1]; } }
     }
 }

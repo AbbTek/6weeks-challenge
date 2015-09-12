@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\AWSS3upload.cs" />
     <Compile Include="Configuration\ChallengeSettings.cs" />
     <Compile Include="Configuration\CManager.cs" />
     <Compile Include="Domain\Box.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="MongoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\CollectionNameAttribute.cs" />
+    <Compile Include="Utils\FileNameNormalizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace Challenge.Core.Domain
 {
     [CollectionName("boxes")]
+    [BsonIgnoreExtraElements]
     public class Box
     {
         [BsonId]
@@ -22,5 +23,6 @@ namespace Challenge.Core.Domain
         public string ShortName { get; set; }
         public string UrlLogo { get; set; }
         public XYPoint Location { get; set; }
+        public DateTime? CreationDate { get; set; }
     }
 }

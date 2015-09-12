@@ -16,7 +16,7 @@ using Challenge.Core.Domain;
 
 namespace WebSite.Controllers.API
 {
-    //[Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class SuperAdminQueryController : ApiController
     {
         public IEnumerable<User> GetAllUsers()

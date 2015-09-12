@@ -118,8 +118,16 @@ challengeApp.controller('boxModalController',
 
         $scope.upload = function (file) {
             Upload.upload({
-                url: '/fileupload',
-                fields: { },
+                url: 'https://6weekschallenge-dev.s3.amazonaws.com/',
+                fields: {
+                    key: 'images/' + file.name, // the key to store the file on S3, could be file name or customized
+                    AWSAccessKeyId: 'AKIAJDM4MVKTULA4W6ZQ',
+                    acl: 'public', // sets the access to the uploaded file in the bucket: private or public
+                    policy: 'ew0KICAiZXhwaXJhdGlvbiI6ICIyMDE2LTA5LTA5VDIzOjM2OjI1WiIsDQogICJjb25kaXRpb25zIjogWw0KICAgIHsiYnVja2V0IjogIjZ3ZWVrc2NoYWxsZW5nZS1kZXYifSwNCiAgICBbInN0YXJ0cy13aXRoIiwgIiRrZXkiLCAiaW1hZ2VzLyJdLA0KICAgIHsiYWNsIjogInByaXZhdGUifSwNCiAgICBbInN0YXJ0cy13aXRoIiwgIiRDb250ZW50LVR5cGUiLCAiaW1hZ2UvIl0sDQogICAgWyJzdGFydHMtd2l0aCIsICIkZmlsZW5hbWUiLCAiIl0sDQogICAgWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsIDAsIDEwNDg1NzYwXQ0KICBdDQp9', // base64-encoded json policy (see article below)
+                    signature: 'QebJtKkhLatYypvMLEyjKrusIMA=', // base64-encoded signature based on policy string (see article below)
+                    "Content-Type": file.type != '' ? file.type : 'application/octet-stream', // content type of the file (NotEmpty)
+                    filename: file.name // this is needed for Flash polyfill IE8-9
+                },
                 file: file
             }).progress(function (evt) {
                 var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);

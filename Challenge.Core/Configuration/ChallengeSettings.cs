@@ -11,6 +11,9 @@ namespace Challenge.Core.Configuration
     {
         private const string mongoDBConnection = "dbConnection";
         private const string mongoDBName = "dbName";
+        private const string awsAccessKeyID = "awsAccessKeyID";
+        private const string awsSecretAccessKey = "awsSecretAccessKey";
+        private const string awsS3Upload = "awsS3Upload";
 
         [ConfigurationProperty(mongoDBConnection)]
         public string MongoDBConnection
@@ -22,6 +25,24 @@ namespace Challenge.Core.Configuration
         public string MongoDBName
         {
             get { return (string)this[mongoDBName]; }
+        }
+
+        [ConfigurationProperty(awsAccessKeyID)]
+        public string AWSAccessKeyID
+        {
+            get { return (string)this[awsAccessKeyID]; }
+        }
+
+        [ConfigurationProperty(awsSecretAccessKey)]
+        public string AWSSecretAccessKey
+        {
+            get { return (string)this[awsSecretAccessKey]; }
+        }
+
+        [ConfigurationProperty(awsS3Upload)]
+        public AWSS3upload AWSS3Upload
+        {
+            get { return (AWSS3upload)this[awsS3Upload]; }
         }
     }
 }

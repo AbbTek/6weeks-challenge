@@ -9,6 +9,8 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using WebSite.Models;
 using Challenge.Core.Domain;
+using System.Collections;
+using System;
 
 namespace WebSite.Controllers.API
 {
@@ -46,17 +48,23 @@ namespace WebSite.Controllers.API
             var result = UserManager.DeleteAsync(user).Result;
         }
 
-        public void CreateOrUpdateBox([FromBody]Box box)
+        public void CreateBox([FromBody]Box box)
         {
             var boxes = MongoRepository.GetCollection<Box>();
-            if (string.IsNullOrWhiteSpace(box._id))
-            {
-                boxes.InsertOneAsync(box).Wait();
-            }
-            else
-            {
-                boxes.ReplaceOneAsync<Box>(z => z._id == box._id, box).Wait();
-            }
+            box.CreationDate = DateTime.Now;
+            boxes.InsertOneAsync(box).Wait();
+        }
+
+        public void UpdateBox([FromBody]Dictionary<string, object> box)
+        {
+            var updateDefinition = MongoRepository.GetUpdateDefinitions(box);
+            var boxes = MongoRepository.GetCollectionBsonDocument<Box>();
+            var builder = Builders<BsonDocument>.Update;
+
+            updateDefinition.UpdateDefinitionList.Add(builder.CurrentDate("LastUpdate"));
+            
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", updateDefinition._id);
+            var r = boxes.UpdateOneAsync(filter, builder.Combine(updateDefinition.UpdateDefinitionList)).Result;
         }
 
         public void DeleteBox(string id)
