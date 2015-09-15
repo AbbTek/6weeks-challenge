@@ -27,6 +27,10 @@ namespace WebSite
                       "~/Content/bootstrap-theme.css",
                       "~/Content/site.css"));
 
+            bundles.Add(new StyleBundle("~/Content/css-academy").Include(
+          "~/Content/bootstrap-theme-academy.css",
+          "~/Content/site.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/superAdmin").Include(
           "~/Scripts/angular.js",
           "~/Scripts/angular-animate.js",
@@ -38,7 +42,6 @@ namespace WebSite
           "~/Scripts/ng-file-upload.js",
           
 
-          "~/Scripts/6weekschallenge/6weekschallenge.module.js",
           "~/Scripts/6weekschallenge/core/core.module.js",
           "~/Scripts/6weekschallenge/core/dataservice.js",
           "~/Scripts/6weekschallenge/core/utilsService.js",
@@ -47,6 +50,26 @@ namespace WebSite
           "~/Scripts/6weekschallenge/superAdmin/superAdmin.js"
           )
           );
+
+            bundles.Add(new ScriptBundle("~/bundles/academyAdmin").Include(
+            "~/Scripts/angular.js",
+            "~/Scripts/angular-animate.js",
+            "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
+            "~/Scripts/lodash.js",
+            "~/Scripts/libs/angular-google-maps.js",
+            "~/Scripts/libs/angular-confirm.js",
+            "~/Scripts/ng-file-upload-shim.js",
+            "~/Scripts/ng-file-upload.js",
+
+
+            "~/Scripts/6weekschallenge/core/core.module.js",
+            "~/Scripts/6weekschallenge/core/dataservice.js",
+            "~/Scripts/6weekschallenge/core/utilsService.js",
+            "~/Scripts/6weekschallenge/core/uploadService.js",
+            "~/Scripts/6weekschallenge/academyAdmin/academyAdmin.module.js",
+            "~/Scripts/6weekschallenge/academyAdmin/academyAdmin.js"
+            )
+            );
         }
     }
 }

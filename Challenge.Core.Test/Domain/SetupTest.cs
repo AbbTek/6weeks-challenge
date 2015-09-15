@@ -16,7 +16,7 @@ namespace Challenge.Core.Test.Domain
             var settings = CManager.Settings;
             var client = new MongoClient(settings.MongoDBConnection);
             var db = client.GetDatabase(settings.MongoDBName);
-            var boxes = db.GetCollection<Box>("boxes");
+            var boxes = db.GetCollection<Academy>("boxes");
             //boxes.InsertOneAsync(new Box() { Name = "RMA2", Address = "Test Address" }).Wait();
 
             var list = boxes.Find(new BsonDocument()).ToListAsync().Result;

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Challenge.Core.Domain
 {
-    [CollectionName("boxes")]
+    [CollectionName("academies")]
     [BsonIgnoreExtraElements]
-    public class Box
+    public class Academy
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

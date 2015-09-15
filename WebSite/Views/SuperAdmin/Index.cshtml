@@ -6,10 +6,10 @@
 
 <h2>6 Weeks Challenge Administrator</h2>
 <div class="row">
-    <div class="col-md-12" ng-controller="boxController">
-        <h3>Boxes</h3>
+    <div class="col-md-12" ng-controller="academyController">
+        <h3>Academies</h3>
         <form class="form-inline">
-            <button type="submit" class="btn btn-default" ng-click="new()">New Box</button>
+            <button type="submit" class="btn btn-default" ng-click="new()">New Academy</button>
         </form>
         <hr />
         <table class="table table-bordered table-hover">
@@ -24,19 +24,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="box in boxes">
-                    <td>{{box.Name}}</td>
-                    <td>{{box.Address}}</td>
-                    <td>{{box.Active}}</td>
-                    <td>{{box.EmailManager}}</td>
-                    <td><img ng-src="{{box.UrlLogo}}" height="80" /></td>
+                <tr ng-repeat="academy in academies">
+                    <td>{{academy.Name}}</td>
+                    <td>{{academy.Address}}</td>
+                    <td>{{academy.Active}}</td>
+                    <td>{{academy.EmailManager}}</td>
+                    <td><img ng-src="{{academy.UrlLogo}}" height="80" /></td>
                     <td>
                         <div>
-                            <button type="button" class="btn btn-xs" ng-click="delete(box._id)" confirm="Are you sure that you want delete {{box.Name}}?"  confirm-settings="{size: 'sm'}">
-                                <i class="glyphicon glyphicon-remove" tooltip="Delete box" tooltip-placement="right"></i>
+                            <button type="button" class="btn btn-xs" ng-click="delete(academy._id)" confirm="Are you sure that you want delete {{academy.Name}}?"  confirm-settings="{size: 'sm'}">
+                                <i class="glyphicon glyphicon-remove" tooltip="Delete academy" tooltip-placement="right"></i>
                             </button>
-                            <button type="button" class="btn btn-xs" ng-click="edit(box)">
-                                <i class="glyphicon glyphicon-edit" tooltip="Edit box" tooltip-placement="right"></i>
+                            <button type="button" class="btn btn-xs" ng-click="edit(academy)">
+                                <i class="glyphicon glyphicon-edit" tooltip="Edit academy" tooltip-placement="right"></i>
                             </button>
                         </div>
                     </td>
@@ -46,56 +46,56 @@
         <div>
             <script type="text/ng-template" id="searchbox.tpl.html">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="txtAddressBox" placeholder="Search Box" ng-model="$parent.box.Address">
+                    <input type="text" class="form-control" id="txtAddressBox" placeholder="Search Box" ng-model="$parent.academy.Address">
                 </div>
             </script>
             <script type="text/ng-template" id="myModalContent.html">
-                <form name="boxForm" ng-submit="submitForm(box)" novalidate>
+                <form name="academyForm" ng-submit="submitForm(academy)" novalidate>
                     <div class="modal-header">
-                        <h3 class="modal-title">Box</h3>
+                        <h3 class="modal-title">Academy</h3>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-4">
-                                <div class="form-group" ng-class="{ 'has-error' : boxForm.Name.$invalid && !boxForm.Name.$pristine }">
-                                    <label for="txtNameBox">Name box</label>
-                                    <input type="text" class="form-control" id="txtNameBox" name="Name" placeholder="Name box" ng-model="box.Name" required>
-                                    <p ng-show="boxForm.Name.$invalid && !boxForm.Name.$pristine" class="help-block">The box name is required.</p>
+                                <div class="form-group" ng-class="{ 'has-error' : academyForm.Name.$invalid && !academyForm.Name.$pristine }">
+                                    <label for="txtNameBox">Name academy</label>
+                                    <input type="text" class="form-control" id="txtNameBox" name="Name" placeholder="Name academy" ng-model="academy.Name" required>
+                                    <p ng-show="academyForm.Name.$invalid && !academyForm.Name.$pristine" class="help-block">The academy name is required.</p>
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-group" ng-class="{ 'has-error' : boxForm.Email.$invalid && !boxForm.Email.$pristine }">
+                                <div class="form-group" ng-class="{ 'has-error' : academyForm.Email.$invalid && !academyForm.Email.$pristine }">
                                     <label for="txtEmailManager">Email manager</label>
-                                    <input type="email" class="form-control" id="txtEmailManager" name="Email" placeholder="Email manager" ng-model="box.EmailManager" required>
-                                    <p ng-show="boxForm.Email.$invalid && !boxForm.Email.$pristine" class="help-block">A valid email is required.</p>
+                                    <input type="email" class="form-control" id="txtEmailManager" name="Email" placeholder="Email manager" ng-model="academy.EmailManager" required>
+                                    <p ng-show="academyForm.Email.$invalid && !academyForm.Email.$pristine" class="help-block">A valid email is required.</p>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" ng-model="box.Active" />Active
+                                        <input type="checkbox" ng-model="academy.Active" />Active
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-4">
-                                <div class="form-group" ng-class="{ 'has-error' : boxForm.Email.$invalid && !boxForm.Email.$pristine }">
-                                    <label for="txtShortName">Short name box</label>
-                                    <input type="text" class="form-control" id="txtShortName" name="ShortName" placeholder="Short name box" ng-model="box.ShortName" required>
-                                    <p ng-show="boxForm.ShortName.$invalid && !boxForm.ShortName.$pristine" class="help-block">A short name is required.</p>
+                                <div class="form-group" ng-class="{ 'has-error' : academyForm.Email.$invalid && !academyForm.Email.$pristine }">
+                                    <label for="txtShortName">Short name academy</label>
+                                    <input type="text" class="form-control" id="txtShortName" name="ShortName" placeholder="Short name academy" ng-model="academy.ShortName" required>
+                                    <p ng-show="academyForm.ShortName.$invalid && !academyForm.ShortName.$pristine" class="help-block">A short name is required.</p>
                                 </div>
                             </div>
                             <div class="col-sm-8">
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <button class="btn btn-info" ngf-select="upload($file)" accept="image/*" ngf-max-size="1MB" type="button">Upload logo box</button>
+                                            <button class="btn btn-info" ngf-select="upload($file)" accept="image/*" ngf-max-size="1MB" type="button">Upload logo academy</button>
                                         </div>
                                         <progressbar class="progress-striped active" value="uploadProgress" type="success"><b>{{uploadProgress}}%</b></progressbar>
                                     </div>
                                     <div class="col-sm-8">
-                                        <img ng-src="{{box.UrlLogo}}" height="80" />
+                                        <img ng-src="{{academy.UrlLogo}}" height="80" />
                                     </div>
                                 </div>
                             </div>

@@ -60,7 +60,7 @@
     <Compile Include="Configuration\AWSS3upload.cs" />
     <Compile Include="Configuration\ChallengeSettings.cs" />
     <Compile Include="Configuration\CManager.cs" />
-    <Compile Include="Domain\Box.cs" />
+    <Compile Include="Domain\Academy.cs" />
     <Compile Include="Domain\Security\Roles.cs" />
     <Compile Include="Domain\Security\User.cs" />
     <Compile Include="Domain\XYPoint.cs" />

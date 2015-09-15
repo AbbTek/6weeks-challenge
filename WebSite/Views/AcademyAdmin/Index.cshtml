@@ -1,0 +1,30 @@
+﻿@model WebSite.Models.AcademyAdmin.AcademyModel
+@{
+    ViewBag.Title = "Dashboard Super Admin";
+    Layout = "~/Views/Shared/_LayoutAcademyAdmin.cshtml";
+}
+
+<h2>Login Academy @Model.Name</h2>
+<hr />
+<div class="row" ng-controller="loginController">
+    <div class="col-md-4">
+        <form name="loginForm" ng-submit="submitForm(login)" novalidate>
+            <input type="text" value="@Model.ID" />
+            <div class="form-group" ng-class="{ 'has-error' : loginForm.Email.$invalid && !loginForm.Email.$pristine }">
+                <label for="txtEmail">Email</label>
+                <input type="email" class="form-control" id="txtEmail" name="Email" placeholder="Email" required ng-model="login.Email">
+                <p ng-show="loginForm.Email.$invalid && !loginForm.Email.$pristine" class="help-block">A valid email is required.</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : loginForm.Password.$invalid && !loginForm.Password.$pristine }">
+                <label for="txtPassword">Password</label>
+                <input type="password" class="form-control" id="txtPassword" name="Password" placeholder="Password" required ng-model="login.Password">
+                <p ng-show="loginForm.Password.$invalid && !loginForm.Password.$pristine" class="help-block">The box password is required.</p>
+            </div>
+            <button class="btn btn-primary" type="submit" ng-disabled="loginForm.$invalid">Login</button>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <img src="@Model.UrlLogo" />
+    </div>
+
+</div>

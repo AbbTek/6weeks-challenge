@@ -1,33 +1,41 @@
-﻿(function() {
+﻿(function () {
     'use strict';
 
     angular
         .module('6weekschallenge.core')
-        .factory('superAdminService', superAdminService);
+        .factory('superAdminService', superAdminService)
+        .factory('academyAdminService', academyAdminService);
 
-    /* @ngInject */
     function superAdminService($http) {
 
         return {
-            getAllBoxes: function (projections) {
-                return $http.get('/api/superadminquery/getallboxes', { params: { projections: projections}})
+            getAllAcademies: function (projections) {
+                return $http.get('/api/superadminquery/getallacademies', { params: { projections: projections } })
                     .then(function (response) {
                         return response.data;
                     });
             },
 
-            deleteBox: function (id) {
-                return $http.delete('/api/superadmincommand/deletebox/' + id);
+            deleteAcademy: function (id) {
+                return $http.delete('/api/superadmincommand/deleteacademy/' + id);
             },
 
-            createBox: function (box) {
-                return $http.post('/api/superadmincommand/createbox', box);
+            createAcademy: function (academy) {
+                return $http.post('/api/superadmincommand/createacademy', academy);
             },
 
-            updateBox: function (box) {
-                return $http.post('/api/superadmincommand/updatebox', box);
+            updateAcademy: function (academy) {
+                return $http.post('/api/superadmincommand/updateacademy', academy);
             }
         };
     }
+
+    function academyAdminService($http) {
+        return {
+            login: function (login) {
+                return $http.post('/api/academyadmincommand/login', login);
+            }
+        };
+    };
 
 })();

@@ -31,7 +31,6 @@ namespace WebSite.Controllers.API
             }
         }
 
-
         public void CreateUser([FromBody]User user)
         {
             var appUser = new ApplicationUser { UserName = user.Email, Email = user.Email };
@@ -48,17 +47,17 @@ namespace WebSite.Controllers.API
             var result = UserManager.DeleteAsync(user).Result;
         }
 
-        public void CreateBox([FromBody]Box box)
+        public void CreateAcademy([FromBody]Academy academy)
         {
-            var boxes = MongoRepository.GetCollection<Box>();
-            box.CreationDate = DateTime.Now;
-            boxes.InsertOneAsync(box).Wait();
+            var boxes = MongoRepository.GetCollection<Academy>();
+            academy.CreationDate = DateTime.Now;
+            boxes.InsertOneAsync(academy).Wait();
         }
 
-        public void UpdateBox([FromBody]Dictionary<string, object> box)
+        public void UpdateAcademy([FromBody]Dictionary<string, object> academy)
         {
-            var updateDefinition = MongoRepository.GetUpdateDefinitions(box);
-            var boxes = MongoRepository.GetCollectionBsonDocument<Box>();
+            var updateDefinition = MongoRepository.GetUpdateDefinitions(academy);
+            var boxes = MongoRepository.GetCollectionBsonDocument<Academy>();
             var builder = Builders<BsonDocument>.Update;
 
             updateDefinition.UpdateDefinitionList.Add(builder.CurrentDate("LastUpdate"));
@@ -67,10 +66,10 @@ namespace WebSite.Controllers.API
             var r = boxes.UpdateOneAsync(filter, builder.Combine(updateDefinition.UpdateDefinitionList)).Result;
         }
 
-        public void DeleteBox(string id)
+        public void DeleteAcademy(string id)
         {
-            var boxes = MongoRepository.GetCollection<Box>();
-            var filter = Builders<Box>.Filter.Eq("_id", new ObjectId(id));
+            var boxes = MongoRepository.GetCollection<Academy>();
+            var filter = Builders<Academy>.Filter.Eq("_id", new ObjectId(id));
             boxes.DeleteOneAsync(filter).Wait();
         }
     }

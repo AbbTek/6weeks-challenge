@@ -35,15 +35,10 @@ namespace WebSite.Controllers.API
             }
         }
 
-        public IEnumerable<Box> GetAllBoxes()
-        {
-            var users = MongoRepository.GetCollection<Box>();
-            return users.Find(new BsonDocument()).ToListAsync().Result;
-        }
 
-        public IEnumerable<IDictionary> GetAllBoxes(string projections)
+        public IEnumerable<IDictionary> GetAllAcademies(string projections)
         {
-            var users = MongoRepository.GetCollectionBsonDocument<Box>();
+            var users = MongoRepository.GetCollectionBsonDocument<Academy>();
             var r = users.Find(new BsonDocument()).Project<BsonDocument>(projections).ToListAsync().Result;
             foreach (var item in r)
             {

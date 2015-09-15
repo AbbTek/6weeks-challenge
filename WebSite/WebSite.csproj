@@ -186,7 +186,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AcademyAdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\API\AcademyAdminCommandController.cs" />
     <Compile Include="Controllers\API\SuperAdminCommandController.cs" />
     <Compile Include="Controllers\API\UtilsController.cs" />
     <Compile Include="Controllers\API\SuperAdminQueryController.cs" />
@@ -197,6 +199,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AcademyAdmin\AcademyModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -204,6 +207,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme-academy.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -219,7 +223,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Scripts\6weekschallenge\6weekschallenge.module.js" />
+    <Content Include="Scripts\6weekschallenge\academyAdmin\academyAdmin.js" />
+    <Content Include="Scripts\6weekschallenge\academyAdmin\academyAdmin.module.js" />
     <Content Include="Scripts\6weekschallenge\core\core.module.js" />
     <Content Include="Scripts\6weekschallenge\core\dataService.js" />
     <Content Include="Scripts\6weekschallenge\core\utilsService.js" />
@@ -307,6 +312,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutSuperAdmin.cshtml" />
     <Content Include="Views\SuperAdmin\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAcademyAdmin.cshtml" />
+    <Content Include="Views\AcademyAdmin\Index.cshtml" />
+    <Content Include="Views\AcademyAdmin\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3,12 +3,12 @@
 
     angular
        .module('6weekschallenge.superAdmin')
-       .controller('boxController', boxController)
-       .controller('boxModalController', boxModalController);
+       .controller('academyController', academyController)
+       .controller('academyModalController', academyModalController);
 
-    function boxController($scope, $modal, superAdminService) {
-        $scope.boxes = [];
-        $scope.box = {
+    function academyController($scope, $modal, superAdminService) {
+        $scope.academies = [];
+        $scope.academy = {
             _id: null,
             Location: {
                 coordinates: [151.20699020000006, -33.8674869]
@@ -16,7 +16,7 @@
         };
 
         $scope.refresh = function () {
-            superAdminService.getAllBoxes(
+            superAdminService.getAllAcademies(
                 {
                     Name: 1,
                     Address: 1,
@@ -26,23 +26,30 @@
                     Location: 1,
                     ShortName: 1
                 }).then(function (data) {
-                    $scope.boxes = data;
+                    $scope.academies = data;
                 });
         };
 
         $scope.delete = function (id) {
-            superAdminService.deleteBox(id).then(function () {
+            superAdminService.deleteAcademy(id).then(function () {
                 $scope.refresh();
             });
         };
 
-        $scope.edit = function (box) {
-            $scope.box = box;
+        $scope.edit = function (academy) {
+            $scope.academy = academy;
             $scope.open();
         };
 
         $scope.new = function () {
-            $scope.box._id = null;
+            $scope.academy._id = null;
+            $scope.academy.Name = "";
+            $scope.academy.Address = "";
+            $scope.academy.Active = false;
+            $scope.academy.EmailManager = "";
+            $scope.academy.ShortName = "";
+            $scope.academy.UrlLogo = "";
+
             $scope.open();
         };
 
@@ -50,11 +57,11 @@
             var modalInstance = $modal.open({
                 animation: true,
                 templateUrl: 'myModalContent.html',
-                controller: 'boxModalController',
+                controller: 'academyModalController',
                 size: 'lg',
                 resolve: {
-                    box: function () {
-                        return $scope.box;
+                    academy: function () {
+                        return $scope.academy;
                     }
                 }
             });
@@ -69,13 +76,13 @@
         $scope.refresh();
     }
 
-    function boxModalController($scope, $modalInstance, uiGmapIsReady, superAdminService, uploadService, box) {
-        $scope.box = box;
+    function academyModalController($scope, $modalInstance, uiGmapIsReady, superAdminService, uploadService, academy) {
+        $scope.academy = academy;
 
         $scope.map = {
             center: {
-                latitude: $scope.box.Location.coordinates[1],
-                longitude: $scope.box.Location.coordinates[0]
+                latitude: $scope.academy.Location.coordinates[1],
+                longitude: $scope.academy.Location.coordinates[0]
             },
             zoom: 15
         };
@@ -83,8 +90,8 @@
         $scope.marker = {
             id: 0,
             coords: {
-                latitude: $scope.box.Location.coordinates[1],
-                longitude: $scope.box.Location.coordinates[0]
+                latitude: $scope.academy.Location.coordinates[1],
+                longitude: $scope.academy.Location.coordinates[0]
             }
         };
 
@@ -97,9 +104,9 @@
                         return;
                     var place = places[0];
 
-                    $scope.box.Address = place.formatted_address;
+                    $scope.academy.Address = place.formatted_address;
 
-                    $scope.box.Location = {
+                    $scope.academy.Location = {
                         coordinates: [place.geometry.location.lng(), place.geometry.location.lat()]
                     }
 
@@ -138,7 +145,7 @@
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                     $scope.uploadProgress = progressPercentage;
                 }).success(function (data, status, headers, config) {
-                    $scope.box.UrlLogo = param.urlImage;
+                    $scope.academy.UrlLogo = param.urlImage;
                     $scope.uploadProgress = 0;
                 }).error(function (data, status, headers, config) {
                     console.log('error status: ' + status);
@@ -146,15 +153,15 @@
             });
         };
 
-        $scope.submitForm = function (box) {
-            if ($scope.boxForm.$valid) {
-                if (box._id != null) {
-                    superAdminService.updateBox(box)
+        $scope.submitForm = function (academy) {
+            if ($scope.academyForm.$valid) {
+                if (academy._id != null) {
+                    superAdminService.updateAcademy(academy)
                     .then(function () {
                         $modalInstance.close();
                     });
                 } else {
-                    superAdminService.createBox(box)
+                    superAdminService.createAcademy(academy)
                     .then(function () {
                         $modalInstance.close();
                     });
