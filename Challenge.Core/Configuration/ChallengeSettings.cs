@@ -44,5 +44,6 @@ namespace Challenge.Core.Configuration
         {
             get { return (AWSS3upload)this[awsS3Upload]; }
         }
+
     }
 }

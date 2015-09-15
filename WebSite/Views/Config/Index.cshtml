@@ -1,0 +1,12 @@
+﻿@model WebSite.Models.Config.CoreConfig
+@{
+    Layout = null;
+}
+(function () {
+    'use strict';
+
+    angular
+        .module('@Model.Module')
+        .constant('settings', @Html.Raw(Model.Settings));
+})();
+
