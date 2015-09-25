@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Challenge.Core.Domain.Security
 {
-    public enum Roles
+    public enum Role
     {
         User,
         ChallengeUser,

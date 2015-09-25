@@ -27,13 +27,16 @@
                 <tr ng-repeat="academy in academies">
                     <td>{{academy.Name}}</td>
                     <td>{{academy.Address}}</td>
-                    <td>{{academy.Active}}</td>
+                    <td>{{academy.State}}</td>
                     <td>{{academy.EmailManager}}</td>
                     <td><img ng-src="{{academy.UrlLogo}}" height="80" /></td>
                     <td>
                         <div>
                             <button type="button" class="btn btn-xs" ng-click="delete(academy._id)" confirm="Are you sure that you want delete {{academy.Name}}?"  confirm-settings="{size: 'sm'}">
                                 <i class="glyphicon glyphicon-remove" tooltip="Delete academy" tooltip-placement="right"></i>
+                            </button>
+                            <button type="button" class="btn btn-xs" ng-click="activate(academy._id)" confirm="Are you sure that you want activate {{academy.Name}}?" confirm-settings="{size: 'sm'}">
+                                <i class="glyphicon glyphicon-check" tooltip="Activate academy" tooltip-placement="right"></i>
                             </button>
                             <button type="button" class="btn btn-xs" ng-click="edit(academy)">
                                 <i class="glyphicon glyphicon-edit" tooltip="Edit academy" tooltip-placement="right"></i>
@@ -71,11 +74,10 @@
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="checkbox">
+         
                                     <label>
-                                        <input type="checkbox" ng-model="academy.Active" />Active
+                                        {{academy.State}}
                                     </label>
-                                </div>
                             </div>
                         </div>
                         <div class="row">

@@ -11,26 +11,16 @@ using WebSite.Models;
 using Challenge.Core.Domain;
 using System.Collections;
 using System;
+using WebSite.Controllers.API.Messages;
+using WebSite.Controllers.API.Exceptions;
+using Challenge.Core.Utils;
+using WebSite.Controllers.API.BaseControllers;
 
 namespace WebSite.Controllers.API
 {
     [Authorize(Roles = "SuperAdmin")]
-    public class SuperAdminCommandController : ApiController
+    public class SuperAdminCommandController : BaseCommandController
     {
-        private ApplicationUserManager _userManager;
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
         public void CreateUser([FromBody]User user)
         {
             var appUser = new ApplicationUser { UserName = user.Email, Email = user.Email };
@@ -51,6 +41,8 @@ namespace WebSite.Controllers.API
         {
             var boxes = MongoRepository.GetCollection<Academy>();
             academy.CreationDate = DateTime.Now;
+            academy.State = AcademyState.Draft;
+            academy.Users = new AcademyUser[] { };
             boxes.InsertOneAsync(academy).Wait();
         }
 
@@ -61,7 +53,7 @@ namespace WebSite.Controllers.API
             var builder = Builders<BsonDocument>.Update;
 
             updateDefinition.UpdateDefinitionList.Add(builder.CurrentDate("LastUpdate"));
-            
+
             var filter = Builders<BsonDocument>.Filter.Eq("_id", updateDefinition._id);
             var r = boxes.UpdateOneAsync(filter, builder.Combine(updateDefinition.UpdateDefinitionList)).Result;
         }
@@ -71,6 +63,38 @@ namespace WebSite.Controllers.API
             var boxes = MongoRepository.GetCollection<Academy>();
             var filter = Builders<Academy>.Filter.Eq("_id", new ObjectId(id));
             boxes.DeleteOneAsync(filter).Wait();
+        }
+
+        public void ActivateAcademy([FromBody]BaseID message)
+        {
+            var boxes = MongoRepository.GetCollection<Academy>();
+            var filter = Builders<Academy>.Filter.Eq("_id", new ObjectId(message.id));
+            var academy = boxes.Find<Academy>(filter).Project<Academy>("{ State : 1,  EmailManager: 1}").SingleOrDefaultAsync().Result;
+
+            if (academy.State == AcademyState.Draft)
+            {
+                var builder = Builders<Academy>.Update;
+                var update = new List<UpdateDefinition<Academy>>();
+
+                update.Add(builder.Set("State", AcademyState.Active));
+                update.Add(builder.Push("Users", new AcademyUser() { Email = academy.EmailManager, Role = Role.BoxAdmin }));
+
+                var r = boxes.UpdateOneAsync(filter, builder.Combine(update)).Result;
+
+                var user = UserManager.FindByEmailAsync(academy.EmailManager).Result;
+
+                if (user == null)
+                {
+                    var appUser = new ApplicationUser { UserName = academy.EmailManager, Email = academy.EmailManager };
+                    appUser.AddRole(EnumsUtils.GetName(Role.BoxAdmin));
+                    var result = UserManager.CreateAsync(appUser, "Revolute2015!").Result;
+                }
+            }
+            else
+            {
+                throw new APIException("You can only activate a Draft academy");
+            }
+
         }
     }
 }

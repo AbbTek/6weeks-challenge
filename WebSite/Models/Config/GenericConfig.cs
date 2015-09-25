@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebSite.Models.Config
 {
-    public class CoreConfig
+    public class GenericConfig
     {
         public string Module { get; set; }
         public string Settings { get; set; }

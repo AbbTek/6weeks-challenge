@@ -10,9 +10,10 @@ using WebSite.Models.AcademyAdmin;
 
 namespace WebSite.Controllers
 {
+    [Authorize]
     public class AcademyAdminController : Controller
     {
-        // GET: AcademyAdmin
+        [AllowAnonymous]
         public ActionResult Index(string id)
         {
             var academies = MongoRepository.GetCollection<Academy>();

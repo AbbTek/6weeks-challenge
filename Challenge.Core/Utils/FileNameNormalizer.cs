@@ -14,7 +14,6 @@ namespace Challenge.Core.Utils
 
         static FileNameNormalizer()
         {
-            //string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
             regex = new Regex(@"[^a-z\d]");
         }
 

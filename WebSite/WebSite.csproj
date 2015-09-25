@@ -189,6 +189,9 @@
     <Compile Include="Controllers\AcademyAdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\AcademyAdminCommandController.cs" />
+    <Compile Include="Controllers\API\BaseControllers\BaseCommandController.cs" />
+    <Compile Include="Controllers\API\Exceptions\APIException.cs" />
+    <Compile Include="Controllers\API\Messages\BaseID.cs" />
     <Compile Include="Controllers\API\SuperAdminCommandController.cs" />
     <Compile Include="Controllers\API\UtilsController.cs" />
     <Compile Include="Controllers\API\SuperAdminQueryController.cs" />
@@ -202,7 +205,7 @@
     </Compile>
     <Compile Include="Models\AcademyAdmin\AcademyModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Config\CoreConfig.cs" />
+    <Compile Include="Models\Config\GenericConfig.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -317,11 +320,11 @@
     <Content Include="Views\Shared\_LayoutAcademyAdmin.cshtml" />
     <Content Include="Views\AcademyAdmin\Index.cshtml" />
     <Content Include="Views\AcademyAdmin\Dashboard.cshtml" />
-    <Content Include="Views\Config\Index.cshtml" />
+    <Content Include="Views\Config\Core.cshtml" />
+    <Content Include="Views\Config\AcademyAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\FileUpload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

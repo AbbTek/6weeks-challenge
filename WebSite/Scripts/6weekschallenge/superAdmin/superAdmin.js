@@ -20,7 +20,7 @@
                 {
                     Name: 1,
                     Address: 1,
-                    Active: 1,
+                    State: 1,
                     EmailManager: 1,
                     UrlLogo: 1,
                     Location: 1,
@@ -39,6 +39,12 @@
         $scope.edit = function (academy) {
             $scope.academy = academy;
             $scope.open();
+        };
+
+        $scope.activate = function (id) {
+            superAdminService.activateAcademy(id).then(function () {
+                $scope.refresh();
+            });
         };
 
         $scope.new = function () {

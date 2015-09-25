@@ -26,6 +26,10 @@
 
             updateAcademy: function (academy) {
                 return $http.post('/api/superadmincommand/updateacademy', academy);
+            },
+
+            activateAcademy: function (id) {
+                return $http.post('/api/superadmincommand/activateacademy', { id : id } );
             }
         };
     }

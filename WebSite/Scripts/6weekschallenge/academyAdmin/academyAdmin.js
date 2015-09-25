@@ -5,8 +5,8 @@
 		.module('6weekschallenge.academyAdmin')
         .controller('loginController', loginController);
 
-	function loginController($scope, academyAdminService) {
-	    $scope.login = {};
+	function loginController($scope, academyAdminService, settings) {
+	    $scope.login = { AcademyID : settings.AcademyID };
 
 	    $scope.submitForm = function (login) {
 	        academyAdminService.login(login)

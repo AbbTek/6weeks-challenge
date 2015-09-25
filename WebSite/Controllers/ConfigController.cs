@@ -12,7 +12,7 @@ namespace WebSite.Controllers
     public class ConfigController : Controller
     {
         // GET: Config
-        public ActionResult Index()
+        public ActionResult Core()
         {
             var settings = CManager.Settings;
             var values = new 
@@ -26,7 +26,7 @@ namespace WebSite.Controllers
             var serializer = new JavaScriptSerializer();
             var json = serializer.Serialize(values);
 
-            var config = new CoreConfig()
+            var config = new GenericConfig()
             {
                 Module = "6weekschallenge.core",
                 Settings = json
@@ -35,5 +35,27 @@ namespace WebSite.Controllers
             Response.ContentType = "text/javascript";
             return View(config);
         }
+
+        public ActionResult AcademyAdmin(string id)
+        {
+            var values = new
+            {
+                AcademyID = id
+       
+            };
+
+            var serializer = new JavaScriptSerializer();
+            var json = serializer.Serialize(values);
+
+            var config = new GenericConfig()
+            {
+                Module = "6weekschallenge.academyAdmin",
+                Settings = json
+            };
+
+            Response.ContentType = "text/javascript";
+            return View(config);
+        }
     }
+
 }
